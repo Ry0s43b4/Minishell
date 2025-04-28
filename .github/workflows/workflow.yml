@@ -1,0 +1,80 @@
+name: Github action workflow
+
+on:
+    push:
+        branches-ignore:
+        - "ga-ignore-*"
+    pull_request:
+        branches-ignore:
+        - "ga-ignore-*"
+
+env:
+    MIRROR_URL: git@github.com:EpitechPGEPromo2029/B-PSU-200-PAR-2-1-minishell2-nicky.truong.git
+    EXECUTABLES: mysh
+
+jobs:
+    check_coding_style:
+        if: github.repository != 'EpitechPGEPromo2029/B-PSU-200-PAR-2-1-minishell2-nicky.truong'
+        name: "Coding-style checker"
+        runs-on: ubuntu-latest
+        container:
+            image: ghcr.io/epitech/coding-style-checker:latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Step1 = Run coding style script
+              run: |
+                check.sh $(pwd) $(pwd)
+                input="coding-style-reports.log"
+                while IFS=":" read -r name line error_type error_code
+                    do
+                        echo "::error title=$error_type coding style error,file=$name,line=$line::$error_
+                        code"
+                    done < "$input"
+
+            - name: Step1.1 = Show coding style (if any)
+              run: |
+                if [ -s coding-style-report.log ]; then
+                    cat rock.txt
+                    exit 1
+                fi
+
+    check_program_compilation:
+        needs: [check_coding_style]
+        name: "Program compilation checker"
+        runs-on: ubuntu-latest
+        container:
+            image: epitechcontent/epitest-docker
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Step1 = Launch make
+              run: make
+              timeout-minutes: 2
+
+            - name: Step2 = Launch clean
+              run: make clean
+
+            - name: Step3 = Verify executable
+              run: |
+                IFS=','
+                    for i in ${{ env.EXECUTABLES }}; do
+                        if [ ! -x $i ]; then
+                           exit 1
+                        fi
+                    done
+
+    push_to_mirror:
+        needs: [check_coding_style, check_program_compilation]
+        name: "Push into the mirror repository"
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                fetch-depth: 0
+            - uses: pixta-dev/repository-mirroring-action@v1
+              with:
+                target_repo_url:
+                    ${{ env.MIRROR_URL }}
+                ssh_private_key:
+                    ${{ secrets.GIT_SSH_PRIVATE_KEY }}
