@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-void semicolons(void)
+void semicolons(linked_mysh_t *ptr, char **cmd1, char **cmd2, char **pathline)
 {
     return;
 }
