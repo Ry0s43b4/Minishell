@@ -10,15 +10,19 @@
 static int line_to_check(char *command)
 {
     int nbr_of_pipes = 0;
+    int nbr_of_semicolons = 0;
 
     if (command == NULL)
         return ERROR;
-    for (int i = 0; command[i] != '\0'; i++)
+    for (int i = 0; command[i] != '\0'; i++) {
         if (command[i] == '|')
             nbr_of_pipes++;
-    if (nbr_of_pipes == 0)
+        if (command[i] == ';')
+            nbr_of_semicolons++;
+    }
+    if (nbr_of_pipes == 0 && nbr_of_semicolons == 0)
         return SUCCESS;
-    return nbr_of_pipes;
+    return nbr_of_pipes + nbr_of_semicolons;
 }
 
 int check_separators(linked_mysh_t *ptr, char *command, char **pathline)
@@ -29,7 +33,7 @@ int check_separators(linked_mysh_t *ptr, char *command, char **pathline)
 
     if (line_to_check(command) == SUCCESS)
         return ERROR;
-    check = my_str_to_word_array(command, '|');
+    check = str_to_array(command, "|;");
     if (check[1] == NULL) {
         write(2, "Invalid null command.\n", 22);
         free_array(check);
@@ -42,3 +46,19 @@ int check_separators(linked_mysh_t *ptr, char *command, char **pathline)
     free_array(command1);
     return SUCCESS;
 }
+
+// static void choose_function(linked_mysh_t *ptr, char **cmd1, char **cmd2,
+//     char **pathline)
+// {
+//     separator_t sep;
+
+//     switch (sep) {
+//     case PIPE:
+//         break;
+//     case SEMICOLON:
+//         break;
+//     default:
+//         break;
+//     }
+//     return;
+// }
