@@ -17,5 +17,6 @@
     #include <sys/wait.h>
     #include <string.h>
     #include <dirent.h>
+    #include <stdbool.h>
 
 #endif /* INCLUDE_H_ */

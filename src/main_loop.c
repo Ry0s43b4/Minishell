@@ -44,7 +44,7 @@ char **clean_input(char *command)
             clean_command[i] = command[i];
     }
     clean_command[len] = '\0';
-    final_input = my_str_to_word_array(clean_command, ' ');
+    final_input = str_to_array(clean_command, " ");
     free(clean_command);
     return final_input;
 }

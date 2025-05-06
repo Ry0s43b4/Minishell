@@ -40,7 +40,7 @@ static char **remove_path(char *pathline)
     }
     tmp[j] = '\0';
     free(pathline);
-    new_env = my_str_to_word_array(tmp, ':');
+    new_env = str_to_array(tmp, ":");
     free(tmp);
     return new_env;
 }

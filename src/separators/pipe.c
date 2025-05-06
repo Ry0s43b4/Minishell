@@ -26,10 +26,9 @@ int my_pipe(char **cmd1, char **cmd2, linked_mysh_t *ptr, char **pathline)
     if (pipe(fdd) < 0)
         return ERROR;
     child = fork();
-    if (child == 0) {
+    if (child == 0)
         child_exec(fdd, cmd1, ptr, pathline);
-        free_array(pathline);
-    } else {
+    else {
         close(fdd[1]);
         dup2(fdd[0], STDIN_FILENO);
         close(fdd[0]);
