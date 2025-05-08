@@ -45,9 +45,8 @@ static char *cut_to_word(char const *str, size_t x, char *seps)
     char *dest = NULL;
     size_t y = 0;
 
-    for (size_t i = x; str[i] != '\0'; ++i)
-        if (!is_sep(str[i], seps))
-            ++size;
+    for (size_t i = x; !is_sep(str[i], seps) && str[i] != '\0'; ++i)
+        ++size;
     dest = malloc(sizeof(char) * (size + 1));
     if (dest == NULL)
         return NULL;
