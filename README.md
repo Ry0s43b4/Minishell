@@ -40,7 +40,7 @@ You will need a C compiler (such as `gcc`) and `make` installed on a UNIX-like s
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com
+   git clone https://github.com/Ry0s43b4/Minishell.git
    ```
 2. Navigate into the directory:
    ```bash
