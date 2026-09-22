@@ -44,7 +44,7 @@ You will need a C compiler (such as `gcc`) and `make` installed on a UNIX-like s
    ```
 2. Navigate into the directory:
    ```bash
-   cd your-repo-name
+   cd Minishell
    ```
 3. Compile the project using the Makefile:
    ```bash
