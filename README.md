@@ -1,10 +1,12 @@
-# Custom Shell
+# Minishell
 
-A functional UNIX command-line interpreter implementing core built-in commands and basic pipeline redirection.
+A functional UNIX command-line interpreter developed as part of the **Epitech** curriculum, implementing core built-in commands and basic pipeline redirection.
 
 ## Project Overview
 
-This repository contains a custom shell capable of executing standard system binaries alongside a selection of custom-built internal commands. It features an initial implementation of command pipelining, allowing two programs to communicate sequentially.
+This project is a recreation of a UNIX shell (like tcsh or bash) aimed at understanding process creation (`fork`), program execution (`execve`), environment variable management, and basic stream manipulation.
+
+The shell executes standard system binaries alongside a selection of custom-built internal commands. It also features an initial implementation of command pipelining, allowing two programs to communicate sequentially.
 
 ## Features
 
@@ -16,14 +18,14 @@ The shell natively handles the following built-in commands, developed from scrat
 * `unsetenv` – Remove variables from the environment.
 
 ### System Commands
-* Executes standard system binaries found in the `PATH` (such as `ls`, `cat`, `echo`, `pwd`, etc.).
+* Executes standard system binaries found in the `PATH` (such as `ls`, `cat`, `echo`, `pwd`, etc.) with correct argument handling.
 
 ### Pipeline Support
-* Supports single piping via the `|` operator to connect two commands sequentially (e.g., `cmd1 | cmd2`). Multi-stage pipelines (more than two commands) are not currently supported.
+* Supports single piping via the `|` operator to connect two commands sequentially (e.g., `cmd1 | cmd2`). Multi-stage pipelines (more than two commands in a row) are not currently supported in this version.
 
 ## Future Roadmap
 
-This project is subject to future improvements as time permits. Planned features include:
+This project is subject to future improvements as time permits. Planned enhancements include:
 * Full support for standard stream redirections (`>`, `>>`, `<`, `<<`).
 * Sequential command execution using the semicolon separator (`;`).
 * Multi-stage pipelining to allow an unlimited chain of consecutive commands.
@@ -32,7 +34,7 @@ This project is subject to future improvements as time permits. Planned features
 
 ### Prerequisites
 
-You will need a C compiler (such as `gcc`) and standard development tools (`make`) installed on your UNIX-like system (Linux/macOS).
+You will need a C compiler (such as `gcc`) and `make` installed on a UNIX-like system (Linux/macOS).
 
 ### Installation & Execution
 
@@ -44,7 +46,7 @@ You will need a C compiler (such as `gcc`) and standard development tools (`make
    ```bash
    cd your-repo-name
    ```
-3. Compile the project:
+3. Compile the project using the Makefile:
    ```bash
    make
    ```
